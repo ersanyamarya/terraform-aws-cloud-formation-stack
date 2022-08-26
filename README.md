@@ -21,7 +21,8 @@ provider "aws" {
 }
 
 module "cloudfront-stack" {
-  source      = "git@github.com:ersanyamarya/terraform-aws-cloud-front-stack.git"
+  source  = "ersanyamarya/cloudfront-stack/aws"
+  version = "0.0.1"
   bucket-name = "example-website"
   Environment = "dev"
   comment     = "Example website"
