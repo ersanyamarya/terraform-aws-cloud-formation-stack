@@ -1,4 +1,4 @@
-# terraform-aws-cloud-front-stack
+# terraform-aws-cloudfront-stack
 
 Terraform module to create a CloudFront distribution stack for any kind of static web application.
 
