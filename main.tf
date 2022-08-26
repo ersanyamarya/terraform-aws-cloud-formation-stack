@@ -1,3 +1,21 @@
+locals {
+  s3_origin_id = "S3-${var.bucket-name}"
+}
+
+resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
+  comment = "origin-access-identity/${var.bucket-name}"
+}
+
+
+resource "aws_s3_bucket" "s3bucket" {
+  bucket = var.bucket-name
+  tags = {
+    Name      = var.bucket-name
+    Terraform = true
+  }
+}
+
+
 resource "aws_s3_bucket_policy" "ss3bucketPolicy" {
   bucket = aws_s3_bucket.s3bucket.id
   policy = jsonencode({
@@ -30,22 +48,6 @@ resource "aws_s3_bucket_public_access_block" "s3bucketPublicAccessBlock" {
 }
 
 
-resource "aws_s3_bucket" "s3bucket" {
-  bucket = var.bucket-name
-  tags = {
-    Name      = var.bucket-name
-    Terraform = true
-  }
-}
-
-locals {
-  s3_origin_id = "S3-${var.bucket-name}"
-}
-
-
-resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
-  comment = "origin-access-identity/${var.bucket-name}"
-}
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
@@ -159,8 +161,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 }
 
-# Create a base alias entry
-
 resource "aws_route53_record" "sub_domains" {
   for_each = var.sub_domian_names
   name     = each.value
@@ -172,12 +172,3 @@ resource "aws_route53_record" "sub_domains" {
     evaluate_target_health = false
   }
 }
-
-# resource "aws_route53_record" "tenant-alias" {
-#   for_each = var.sub_domian_names
-#   name     = each.value
-#   type     = "CNAME"
-#   ttl      = 3000
-#   zone_id  = var.route53_zone_id
-#   records  = [var.domain_alias]
-# }
