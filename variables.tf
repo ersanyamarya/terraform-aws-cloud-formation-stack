@@ -23,7 +23,7 @@ variable "acm_certificate_arn" {
   description = "arn of the certificate from route53 to use for the cloudfront distribution"
 }
 
-variable "sub_domian_names" {
+variable "sub_domain_names" {
   description = "subdomains for the cloudfront distribution (array of strings) for public access"
 }
 

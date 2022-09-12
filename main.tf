@@ -80,7 +80,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     prefix          = var.logs_prefix
   }
 
-  aliases = var.sub_domian_names
+  aliases = var.sub_domain_names
 
   default_cache_behavior {
     allowed_methods = [
@@ -162,7 +162,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 }
 
 resource "aws_route53_record" "sub_domains" {
-  for_each = var.sub_domian_names
+  for_each = var.sub_domain_names
   name     = each.value
   type     = "A"
   zone_id  = var.route53_zone_id

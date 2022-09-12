@@ -1,7 +1,8 @@
 # terraform-aws-cloudfront-stack
 
 Terraform module to create a CloudFront distribution stack for any kind of static web application.
-
+## Changelog
+* Corrected the spellings for `sub_domain_names`. Please use `sub_domain_names` instead of `sub_domian_names` in your code.
 ## Available Features
 * Creates a S3 bucket for the website static files.
 * Creates AWS S3 bucket public access block to make the S3 bucket private.
@@ -22,7 +23,7 @@ provider "aws" {
 
 module "cloudfront-stack" {
   source  = "ersanyamarya/cloudfront-stack/aws"
-  version = "0.0.1"
+  version = "0.0.3"
   bucket-name = "example-website"
   Environment = "dev"
   comment     = "Example website"
@@ -32,7 +33,7 @@ module "cloudfront-stack" {
   # PUT THE ARN OF YOUR AWS CERTIFICATE MUST BE IN VIRGINIA REGION
   acm_certificate_arn = "arn:aws:acm:us-east-1:eeeewfdsfdsfdsf"
   route53_zone_id     = "Z08012192HWS2JY8G8M0P"
-  sub_domian_names    = toset(["www.example.com","example.com"])
+  sub_domain_names    = toset(["www.example.com","example.com"])
 }
 
 
